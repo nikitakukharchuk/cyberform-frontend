@@ -12,16 +12,21 @@ export default createRouter({
         },
         {
             path: '/blog',
-            name: 'Blog',
-            component: () => import('@/pages/Blog/BlogPage.vue'),
-            meta: { layout: DefaultLayout, name: 'Blog' }
+            children: [
+                {
+                    path: '',
+                    name: 'Blog',
+                    component: () => import('@/pages/Blog/BlogPage.vue'),
+                    meta: { layout: DefaultLayout, name: 'Blog' }
+                },
+                {
+                    path: ':id',
+                    name: 'Post',
+                    component: PostPage,
+                    meta: { layout: DefaultLayout, name: 'Post' }
+                }
+            ]
         },
-        {
-            path: '/blog/:id',
-            name: 'Post',
-            component: PostPage,
-            meta: { layout: DefaultLayout, name: 'Post' }
-        }
 
     ],
 })
