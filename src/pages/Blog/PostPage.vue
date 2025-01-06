@@ -100,15 +100,23 @@ onMounted(async () => {
   <section>
     <div class="text-32-32-700 py-5 flex justify-between">
       <Title>Post</Title>
-      <div class="flex gap-2">
+      <div class="flex gap-2" v-show="!isLoadingPost">
         <Button color="danger" :disabled="isLoadingPostDelete" @click="handlePostDelete">Delete Post</Button>
         <Button @click="showEditPostModal = true">Edit Post</Button>
       </div>
     </div>
   </section>
-  <section v-if="post">
-    <div class="text-24-24-600 mb-10">{{ post?.title }}</div>
-    <div class="text-16-16-400">{{ post?.body }}</div>
-    <div class="text-16-16-400 text-end">{{ post?.updated_at && formatDate(post?.updated_at) }}</div>
-  </section>
+  <template v-if="isLoadingPost">
+    <div class="text-center">
+      Loading ...
+    </div>
+  </template>
+  <template v-if="!isLoadingPost">
+    <section v-if="post">
+      <div class="text-24-24-600 mb-10">{{ post?.title }}</div>
+      <div class="text-16-16-400">{{ post?.body }}</div>
+      <div class="text-16-16-400 text-end">{{ post?.updated_at && formatDate(post?.updated_at) }}</div>
+    </section>
+  </template>
+
 </template>

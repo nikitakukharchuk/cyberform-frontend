@@ -99,18 +99,29 @@ async function handleCreatePost(post: Post) {
     </div>
   </section>
 
-  <section class="mb-5">
-    <Input
-        v-model="searchQuery"
-        type="text"
-        placeholder="Search by title or body"
-    />
-  </section>
+  <template v-if="isLoadingPosts">
+    <div class="text-center">
+      Loading ...
 
-  <section>
-    <PostList :posts="viewPosts" @click-post="handleClickPost" />
-  </section>
-  <section v-if="filteredPosts.length" class="py-5">
-    <Pagination :total-items="filteredPosts.length" :items-per-page="itemsPerPage" v-model="page" />
-  </section>
+    </div>
+  </template>
+
+  <template v-if="!isLoadingPosts">
+    <section class="mb-5">
+      <Input
+          v-model="searchQuery"
+          type="text"
+          placeholder="Search by title or body"
+      />
+    </section>
+
+    <section>
+      <PostList :posts="viewPosts" @click-post="handleClickPost" />
+    </section>
+    <section v-if="filteredPosts.length" class="py-5">
+      <Pagination :total-items="filteredPosts.length" :items-per-page="itemsPerPage" v-model="page" />
+    </section>
+  </template>
+
+
 </template>
